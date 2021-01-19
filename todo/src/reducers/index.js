@@ -1,32 +1,35 @@
-export const initialState = [
-  {  todo: 
-    {
-    item: 'Learn about reducers',
-    completed: false,
-    id: 3892987589,
-    setNewTodo: ''
-    }
-},
-]
+import { REMOVE_TODO, ADD_TODO, COMPLETED_TODO } from "../actions/index";
 
-// reducer takes two args: current state & action obj
-const reducer = (state, action) => {
-    switch(action.type){
-        case('ADD_TODO'):
-        // make a copy of current state & change the value of todo item
-             return({...state, setNewTodo: action.payload});
-        case('SET_TODO'):
-        // make a copy of current state & change the value of todo item
-              return({...state, item: action.payload});
-        case('SET_COMPLETED'):
-            return({...state, completed: action.payload});
-        case('SET_NEW_ID'):
-            return({...state, id: Math.random()});
-        case ('CLEAR_COMPLETED'):
-                return { ...state, currentValue: 0 };
-        default: 
-             return(state); 
-    };
+export const initialState = {
+  todos: [
+    {
+      item: "Learn about reducers",
+      completed: false,
+      id: 3892987589
+    },
+    {
+      item: "cry",
+      completed: false,
+      id: 716786
+    },
+    {
+      item: "watch tv",
+      completed: false,
+      id: 76129
+    }
+  ],
+  addedTodo: ""
 };
 
-export default reducer
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
+    case ADD_TODO:
+      return { ...state, newTodo: action.payload };
+    case REMOVE_TODO:
+      return { ...state, todoId: action.payload };
+    case COMPLETED_TODO:
+      return { ...state, completed: !state.completed };
+    default:
+      return state;
+  }
+}
